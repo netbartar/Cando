@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -41,5 +42,29 @@ class PostController extends Controller
         ]);
 
         return redirect()->route('post.index');
+    }
+
+    public function edit($id)
+    {
+        $post = DB::table('posts')->find($id);
+        return view('postManagement.edit',compact('post'));
+    }
+
+    public function updatePost(UpdatePostRequest $request, $id)
+    {
+        DB::table('posts')->where('id',$id)
+            ->update([
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
+
+        return redirect()->route('post.index');
+    }
+
+
+    public function delete($id)
+    {
+        DB::table('posts')->where('id',$id)->delete();
+        return redirect()->back();
     }
 }
