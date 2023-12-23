@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePostRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,4 +28,18 @@ class PostController extends Controller
         return view('postManagement.show',compact('post','title'));
     }
 
+    public function create()
+    {
+        return view('postManagement.create');
+    }
+
+    public function storePost(CreatePostRequest $request)
+    {
+        DB::table('posts')->insert([
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
+
+        return redirect()->route('post.index');
+    }
 }

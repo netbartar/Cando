@@ -19,9 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('posts',[PostController::class,'postList']);
+Route::get('posts',[PostController::class,'postList'])->name('post.index');
 Route::get('post/{id}',[PostController::class,'show'])->name('post.show');
-
+Route::get('post/create/new',[PostController::class,'create'])->name('post.create');
+Route::post('post/store',[PostController::class,'storePost'])->name('post.store');
 
 
 

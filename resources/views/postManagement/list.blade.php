@@ -16,7 +16,7 @@
             </tr>
             @foreach($posts as $post)
                 <tr>
-                    <td><{{$post->id}}</td>
+                    <td>{{$post->id}}</td>
                     <td><a href="{{route('post.show',$post->id)}}"> {{$post->title}}</a></td>
                     <td>{{$post->created_at}}</td>
                 </tr>
