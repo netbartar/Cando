@@ -36,11 +36,16 @@ class PostController extends Controller
 
     public function storePost(CreatePostRequest $request)
     {
-        DB::table('posts')->insert([
-            'title' => $request->title,
-            'body' => $request->body
-        ]);
+//        DB::table('posts')->insert([
+//            'title' => $request->title,
+//            'body' => $request->body
+//        ]);
 
+        DB::table('products')->insert([
+            'title' => 'mobile',
+            'price' => '10000',
+            'total_count' => 10
+        ]);
         return redirect()->route('post.index');
     }
 
