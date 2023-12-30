@@ -43,7 +43,7 @@ class ProductController extends Controller
     {
         $products = Product::
             select('id','title','price','total_count','is_active','category','created_at')
-            ->where('is_active',1)
+//            ->where('is_active',1)
             ->get();
 
         return view('product.index',compact('products'));
@@ -71,6 +71,24 @@ class ProductController extends Controller
             'total_count' => $request->total_count,
             'category' => $request->category,
             'description' => $request->description,
+        ]);
+
+        return redirect()->route('product.index');
+    }
+
+    public function productDelete($id)
+    {
+        Product::find($id)->delete();
+        return redirect()->route('product.index');
+    }
+
+    public function productActivation($id)
+    {
+        $product = Product::find($id);
+//        $activeValue = $product->is_active ? 0 : 1
+//        $product->save();
+        $product->update([
+            'is_active' => $product->is_active ? 0 : 1
         ]);
 
         return redirect()->route('product.index');

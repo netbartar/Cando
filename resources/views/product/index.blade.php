@@ -30,21 +30,33 @@
                     <td>{{$product->price}}</td>
                     <td class="text-right">{{$product->total_count}}</td>
                     <td class="text-right">{{$product->is_active ? 'active' : 'de activate'}}</td>
-                    <td class="td-actions text-right">
-                        <a href="{{route('product.show',$product->id)}}">
-                            <button type="button" rel="tooltip" class="btn btn-info btn-sm btn-icon">
-                                <i class="now-ui-icons users_single-02"></i>
-                            </button>
-                        </a>
-                        <a href="{{route('product.edit',$product->id)}}">
-                            <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-icon">
-                                <i class="now-ui-icons ui-2_settings-90"></i>
-                            </button>
-                        </a>
-                        <button type="button" rel="tooltip" class="btn btn-danger btn-sm btn-icon">
-                            <i class="now-ui-icons ui-1_simple-remove"></i>
-                        </button>
-                    </td>
+
+                    <div class="row">
+                        <td class="td-actions text-right">
+                            <a href="{{route('product.show',$product->id)}}">
+                                <button type="button" rel="tooltip" class="btn btn-info btn-sm btn-icon">
+                                    <i class="now-ui-icons users_single-02"></i>
+                                </button>
+                            </a>
+                            <a href="{{route('product.edit',$product->id)}}">
+                                <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-icon">
+                                    <i class="now-ui-icons ui-2_settings-90"></i>
+                                </button>
+                            </a>
+                            <form method="POST" action="{{route('product.delete',$product->id)}}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" rel="tooltip" class="btn btn-danger btn-sm btn-icon">
+                                    <i class="now-ui-icons ui-1_simple-remove"></i>
+                                </button>
+                            </form>
+                            <a href="{{route('product.activation',$product->id)}}">
+                                <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-icon">
+                                    <i class="business_chart-bar-32"></i>
+                                </button>
+                            </a>
+                        </td>
+                    </div>
                 </tr>
             @endforeach
         @endif
