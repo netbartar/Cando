@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->integer('price');
-            $table->integer('total-count');
+            $table->integer('total_count');
             $table->enum('category',['technology','sport']);
             $table->longText('description')->nullable();
             $table->boolean('is_active')->default(1);
