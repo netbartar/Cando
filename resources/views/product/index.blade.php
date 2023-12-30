@@ -36,9 +36,11 @@
                                 <i class="now-ui-icons users_single-02"></i>
                             </button>
                         </a>
-                        <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-icon">
-                            <i class="now-ui-icons ui-2_settings-90"></i>
-                        </button>
+                        <a href="{{route('product.edit',$product->id)}}">
+                            <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-icon">
+                                <i class="now-ui-icons ui-2_settings-90"></i>
+                            </button>
+                        </a>
                         <button type="button" rel="tooltip" class="btn btn-danger btn-sm btn-icon">
                             <i class="now-ui-icons ui-1_simple-remove"></i>
                         </button>

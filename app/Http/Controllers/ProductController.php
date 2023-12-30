@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -51,5 +53,26 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         return view('product.show',compact('product'));
+    }
+
+    public function productEdit($id)
+    {
+        $product = Product::find($id);
+//        $product = Product::where('id',$id)->first();
+        return view('product.edit',compact('product'));
+    }
+
+    public function productUpdate(UpdateProductRequest $request, $id)
+    {
+        $product = Product::find($id);
+        $product->update([
+            'title' => $request->title,
+            'price' => $request->price,
+            'total_count' => $request->total_count,
+            'category' => $request->category,
+            'description' => $request->description,
+        ]);
+
+        return redirect()->route('product.index');
     }
 }
