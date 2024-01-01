@@ -4,6 +4,7 @@
 @endsection
 
 @section('content')
+    <br><br>
     <h1>create new post</h1>
     <br><br>
     <div class="row">

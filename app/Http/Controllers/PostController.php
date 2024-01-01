@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,9 +13,9 @@ class PostController extends Controller
 
     public function postList()
     {
-        $posts = DB::table('posts')
-            ->select('id','title','created_at')
+        $posts = Post::with('comments')
             ->get();
+        return  $posts;
         return view('postManagement.list',compact('posts'));
     }
 
@@ -22,8 +23,7 @@ class PostController extends Controller
     public function show($id)
     {
 //        $post = DB::table('posts')->where('id',$id)->first();
-        $post = DB::table('posts')
-            ->select('id','title','created_at','body')
+        $post = Post::with('comments')
             ->find($id);
         $title = $post ? $post->title : '';
         return view('postManagement.show',compact('post','title'));
@@ -36,15 +36,10 @@ class PostController extends Controller
 
     public function storePost(CreatePostRequest $request)
     {
-//        DB::table('posts')->insert([
-//            'title' => $request->title,
-//            'body' => $request->body
-//        ]);
-
-        DB::table('products')->insert([
-            'title' => 'mobile',
-            'price' => '10000',
-            'total_count' => 10
+        Post::create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'test' => 'test'
         ]);
         return redirect()->route('post.index');
     }
@@ -72,4 +67,5 @@ class PostController extends Controller
         DB::table('posts')->where('id',$id)->delete();
         return redirect()->back();
     }
+
 }

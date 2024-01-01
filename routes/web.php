@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\CommentController;
 
 
 /*
@@ -52,3 +53,5 @@ Route::controller(UserController::class)->group(function (){
     });
 });
 
+Route::get('post/comment/create/{id}',[CommentController::class,'createComment'])->name('comment.create');
+Route::post('post/comment/store/{id}',[CommentController::class,'storeComment'])->name('comment.store');

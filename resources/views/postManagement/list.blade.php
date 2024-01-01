@@ -1,10 +1,11 @@
-@extends('layout.app')
+@extends('layout.master')
 
 @section('title')
     {{'Post List Page'}}
 @endsection
 
 @section('content')
+    <br><br>
     <h1>Post List Page</h1>
     <br>
     <div class="col-sm-6">
@@ -17,7 +18,7 @@
             </tr>
             @foreach($posts as $key=>$post)
                 <tr>
-                    <td>{{$key}}</td>
+                    <td>{{$key+1}}</td>
                     <td><a href="{{route('post.show',$post->id)}}"> {{$post->title}}</a></td>
                     <td>{{$post->created_at}}</td>
                     <td>
