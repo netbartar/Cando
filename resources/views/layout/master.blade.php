@@ -38,15 +38,15 @@
         <div class="sidebar-wrapper" id="sidebar-wrapper">
             <ul class="nav">
                 <li>
-                    <a href="./dashboard.html">
+                    <a href="{{route('roles.index')}}">
                         <i class="now-ui-icons design_app"></i>
-                        <p>Dashboard</p>
+                        <p>Roles</p>
                     </a>
                 </li>
                 <li>
-                    <a href="./icons.html">
+                    <a href="{{route('user.index')}}">
                         <i class="now-ui-icons education_atom"></i>
-                        <p>Icons</p>
+                        <p>Users</p>
                     </a>
                 </li>
                 <li>

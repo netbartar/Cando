@@ -2,40 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateUserRequest;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function userList()
+
+    public function createUser()
     {
-        DB::table('posts')->get();
-        $users = $this->info();
-        return view('UserManagement.Users',compact('users'));
-//        return view('UserManagement.Users')->with(['users'=>$name,'lastname'=>$lastname]);
-//        return view('UserManagement.Users',['name'=>$name,'lastname'=>$lastname]);
+        $roles = Role::select('id','name')->get();
+        return view('user.create',compact('roles'));
     }
 
-    public function show($name)
+    public function storeUser(CreateUserRequest $request)
     {
-        $users = $this->info();
-        return $users[$name];
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role_id' => $request->role_id,
+        ]);
+        return redirect()->route('user.index');
     }
 
-    private function info(){
-        return [
-            'Vahid' => [
-                'age' => 20,
-                'x' => 50
-            ],
-            'Sara' => [
-                'age' => 15,
-                'x' => 60
-            ],
-            'Bahram' => [
-                'age' => 5,
-                'x' => 30
-            ],
-        ];
+    public function listOfUsers()
+    {
+        $users = User::with('role:id,name')->get();
+        return view('user.index',compact('users'));
+    }
+
+    public function showUser($id)
+    {
+        $user = User::with('role:id,name')->find($id);
+
+    }
+
+    public function deleteUser($id)
+    {
+        User::find($id)->delete();
     }
 }

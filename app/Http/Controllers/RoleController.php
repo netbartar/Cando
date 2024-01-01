@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,12 +14,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-//        $users = User::with('address:address,user_id')
-//            ->select('id','name')
-//            ->get();
-
-        $addresses = Address::with('user:id,name')->paginate(10);
-        return $addresses;
+        $roles = Role::select('id','name')->get();
+        return view('role.index',compact('roles'));
     }
 
     /**
@@ -26,7 +23,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('role.create');
     }
 
     /**
@@ -34,7 +31,12 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        Role::create($request->only('name'));
+        return redirect()->route('roles.index');
     }
 
     /**
